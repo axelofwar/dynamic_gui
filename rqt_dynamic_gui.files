@@ -1,0 +1,5 @@
+include/rqt_dynamic_gui/rqt_dynamic_gui_widget.h
+include/rqt_dynamic_gui/rqt_dynamic_gui.h
+src/rqt_dynamic_gui/rqt_dynamic_gui_widget.cpp
+src/rqt_dynamic_gui/rqt_dynamic_gui.cpp
+ui/rqt_dynamic_gui/rqt_dynamic_gui_widget.ui

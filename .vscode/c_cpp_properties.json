@@ -1,0 +1,59 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/vuda/catkin_ws/devel/include/**",
+                "/opt/ros/melodic/include/**",
+                "/home/vuda/catkin_ws/src/ros_canopen/canopen_402/include/**",
+                "/home/vuda/catkin_ws/src/ros_canopen/canopen_chain_node/include/**",
+                "/home/vuda/catkin_ws/src/ros_canopen/canopen_master/include/**",
+                "/home/vuda/catkin_ws/src/ros_canopen/canopen_motor_node/include/**",
+                "/home/vuda/catkin_ws/src/cv_camera/include/**",
+                "/home/vuda/catkin_ws/src/dataspeed_can/dataspeed_can_msg_filters/include/**",
+                "/home/vuda/catkin_ws/src/dataspeed_can/dataspeed_can_usb/include/**",
+                "/home/vuda/catkin_ws/src/dbc/include/**",
+                "/home/vuda/catkin_ws/src/image_pipeline/depth_image_proc/include/**",
+                "/home/vuda/catkin_ws/src/image_pipeline/image_proc/include/**",
+                "/home/vuda/catkin_ws/src/local_directory/include/**",
+                "/home/vuda/catkin_ws/src/lusb/include/**",
+                "/home/vuda/catkin_ws/src/mapviz/mapviz/include/**",
+                "/home/vuda/catkin_ws/src/mapviz/mapviz_plugins/include/**",
+                "/home/vuda/catkin_ws/src/ros_comm/utilities/message_filters/include/**",
+                "/home/vuda/catkin_ws/src/mapviz/multires_image/include/**",
+                "/home/vuda/catkin_ws/src/ros_comm/tools/rosbag/include/**",
+                "/home/vuda/catkin_ws/src/ros_comm/tools/rosbag_storage/include/**",
+                "/home/vuda/catkin_ws/src/ros_comm/clients/roscpp/include/**",
+                "/home/vuda/catkin_ws/src/ros_comm/utilities/roslz4/include/**",
+                "/home/vuda/catkin_ws/src/ros_comm/tools/rostest/include/**",
+                "/home/vuda/catkin_ws/src/rqt_bag_button/include/**",
+                "/home/vuda/catkin_ws/src/rqt_bag_playback/include/**",
+                "/home/vuda/catkin_ws/src/rqt_bsm_cta_indicator/include/**",
+                "/home/vuda/catkin_ws/src/rqt_camera_buttons/include/**",
+                "/home/vuda/catkin_ws/src/rqt_camera_view/include/**",
+                "/home/vuda/catkin_ws/src/rqt_can_signal/include/**",
+                "/home/vuda/catkin_ws/src/dynamic_Gui/include/**",
+                "/home/vuda/catkin_ws/src/dynamic_gui/include/**",
+                "/home/vuda/catkin_ws/src/rqt_image_view/include/**",
+                "/home/vuda/catkin_ws/src/rqt_steering_wheel/include/**",
+                "/home/vuda/catkin_ws/src/rqt_vehicle_info/include/**",
+                "/home/vuda/catkin_ws/src/ros_canopen/socketcan_bridge/include/**",
+                "/home/vuda/catkin_ws/src/ros_canopen/socketcan_interface/include/**",
+                "/home/vuda/catkin_ws/src/image_pipeline/stereo_image_proc/include/**",
+                "/home/vuda/catkin_ws/src/mapviz/tile_map/include/**",
+                "/home/vuda/catkin_ws/src/ros_comm/tools/topic_tools/include/**",
+                "/home/vuda/catkin_ws/src/ros_comm/utilities/xmlrpcpp/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++14"
+        }
+    ],
+    "version": 4
+}

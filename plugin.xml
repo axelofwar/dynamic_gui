@@ -1,0 +1,13 @@
+<library path="lib/librqt_dynamic_gui">
+  <class name="dynamic_gui" type="rqt_dynamic_gui::dynamic_gui" base_class_type="rqt_gui_cpp::Plugin">
+    <description>This is a plugin that will add a dynamic user interface for the control of specified user-inputted parameters</description>
+    <qtgui>
+      <group>
+        <label>Custom Plugins</label>
+        <icon type="theme">folder</icon>
+      </group>
+      <label>dynamic_gui</label>
+      <statustip>This is a plugin that will add a dynamic user interface for the control of specified user-inputted parameters</statustip>
+    </qtgui>
+  </class>
+</library>
