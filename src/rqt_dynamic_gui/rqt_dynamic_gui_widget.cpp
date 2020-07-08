@@ -9,6 +9,9 @@
 #include <QTextStream>
 #include <QVariant>
 #include <QSlider>
+#include <cstdlib>
+#include <iostream>
+
 
 #include "ui_rqt_dynamic_gui_widget.h"
 
@@ -43,35 +46,42 @@ dynamic_gui_widget::dynamic_gui_widget(QWidget *parent) :
     //read Json
 
      QFile file_obj("Generate_file.json");
-
+      // qDebug()<<"Failed to open "<<"Generate_file.json";
        if(!file_obj.open(QIODevice::ReadOnly))
        {
-         //qDebug()<<"Failed to open "<<"Generate_file.json";
-
+        //  qDebug()<<"Failed to open2 "<<"Generate_file.json";
      }
 
+    //  std::cout <<"Before QTextStream block";
      QTextStream file_text(&file_obj);
      QString json_string;
      json_string = file_text.readAll();
      file_obj.close();
      QByteArray json_bytes = json_string.toLocal8Bit();
-
-
+    //  std::cout <<"After QTextStream block";
+    
+    //  std::cout <<"Before auto block";
      auto json_doc=QJsonDocument::fromJson(json_bytes);
+    //  std::cout <<"After auto block";
 
      if(json_doc.isNull()){
          //qDebug()<<"Failed to create JSON doc.";
+         std::cout<<"JSON failed to create";
          exit(2);
      }
      if(!json_doc.isObject()){
          //qDebug()<<"JSON is not an object.";
+         std::cout<<"JSON is not an object";
          exit(3);
      }
+
+    std::cout <<"After if statements block";
 
      QJsonObject json_obj=json_doc.object();
 
      if(json_obj.isEmpty()){
          //qDebug()<<"JSON object is empty.";
+         std::cout<<"JSON is empty";
          exit(4);
      }
 
@@ -104,7 +114,7 @@ void dynamic_gui_widget::on_btnCancel_clicked()
 void dynamic_gui_widget::on_btnDbcBrowse_clicked()
 {
   QString FileName=QFileDialog::getOpenFileName(
-      this, tr("Open File"), "/home/souvik/Desktop", "Dbc file(*.dbc)"
+      this, tr("Open File"), "/home/vuda/Desktop", "Dbc file(*.dbc)"
         );
 
 ui->txtDbcPath->setPlainText(FileName);
@@ -113,7 +123,7 @@ ui->txtDbcPath->setPlainText(FileName);
 void dynamic_gui_widget::on_btnRoslaunchBrowse_clicked()
 {
   QString FileName=QFileDialog::getOpenFileName(
-      this, tr("Open File"), "/home/souvik/Desktop"
+      this, tr("Open File"), "/home/vuda/Desktop"
         );
   ui->plainTextEdit->setPlainText(FileName);
 }
@@ -121,7 +131,7 @@ void dynamic_gui_widget::on_btnRoslaunchBrowse_clicked()
 void dynamic_gui_widget::on_btnPortPathBrowse_clicked()
 {
   QString FileName=QFileDialog::getOpenFileName(
-      this, tr("Open File"), "/home/souvik/Desktop"
+      this, tr("Open File"), "/home/vuda/Desktop"
         );
   ui->txtPort->setPlainText(FileName);
 }
@@ -149,7 +159,7 @@ void dynamic_gui_widget::on_btnOK_clicked()
            //QFile jsonFile("test.json");
            //QString filename = "abc";
 
-           //QString data_saved = QFileDialog::getSaveFileName(this, tr("Save File"),"/home/souvik",
+           //QString data_saved = QFileDialog::getSaveFileName(this, tr("Save File"),"/home/vuda",
                                     //json_filter, &json_filter,QFileDialog::DontUseNativeDialog);
 
 
@@ -179,6 +189,7 @@ void dynamic_gui_widget::on_btnOK_clicked()
              QByteArray data_json = doc.toJson();
              QFile output(data_saved);
 
+            // std::cout<<"Before QTextStream block";
         if (output.open(QIODevice::WriteOnly | QIODevice::Text))
              {
              output.write(data_json);
@@ -189,6 +200,8 @@ void dynamic_gui_widget::on_btnOK_clicked()
                QMessageBox::critical(this,tr("TITLE"),tr("Error while saving!!"),
                                      output.errorString());
              }
+
+            //  std::cout<<"Before QTextStream block";
             }
 }
 
