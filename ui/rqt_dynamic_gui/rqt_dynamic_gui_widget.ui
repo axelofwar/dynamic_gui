@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-<class>dynamic_gui_widget</class>
-<widget class="QWidget" name="rqt_dynamic_gui_widget">
+ <class>dynamic_gui_widget</class>
+ <widget class="QWidget" name="dynamic_gui_widget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,14 +13,22 @@
   <property name="windowTitle">
    <string>dynamic reconfigure</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="centralwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>601</width>
+     <height>571</height>
+    </rect>
+   </property>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>581</width>
-      <height>551</height>
+      <width>441</width>
+      <height>491</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -29,41 +37,12 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="lblTopicCount">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>111</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Topic Count</string>
-     </property>
-    </widget>
-    <widget class="QSlider" name="TopicSliderRange">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>30</y>
-       <width>281</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
     <widget class="QLabel" name="lblDbcFilePath">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>100</y>
-       <width>111</width>
+       <x>10</x>
+       <y>30</y>
+       <width>91</width>
        <height>31</height>
       </rect>
      </property>
@@ -74,8 +53,8 @@
     <widget class="QPlainTextEdit" name="txtDbcPath">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>100</y>
+       <x>100</x>
+       <y>30</y>
        <width>281</width>
        <height>31</height>
       </rect>
@@ -87,8 +66,8 @@
     <widget class="QPushButton" name="btnDbcBrowse">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>100</y>
+       <x>390</x>
+       <y>30</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -100,8 +79,8 @@
     <widget class="QLabel" name="lblRosLaunchPath">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>160</y>
+       <x>10</x>
+       <y>90</y>
        <width>151</width>
        <height>51</height>
       </rect>
@@ -113,9 +92,9 @@
     <widget class="QPlainTextEdit" name="plainTextEdit">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>170</y>
-       <width>281</width>
+       <x>150</x>
+       <y>100</y>
+       <width>231</width>
        <height>31</height>
       </rect>
      </property>
@@ -126,8 +105,8 @@
     <widget class="QPushButton" name="btnRoslaunchBrowse">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>170</y>
+       <x>390</x>
+       <y>100</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -139,22 +118,22 @@
     <widget class="QLabel" name="lblPort">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>220</y>
-       <width>111</width>
+       <x>10</x>
+       <y>160</y>
+       <width>101</width>
        <height>51</height>
       </rect>
      </property>
      <property name="text">
-      <string>Port</string>
+      <string>Usb_cam Port</string>
      </property>
     </widget>
     <widget class="QPlainTextEdit" name="txtPort">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>230</y>
-       <width>281</width>
+       <x>120</x>
+       <y>170</y>
+       <width>261</width>
        <height>31</height>
       </rect>
      </property>
@@ -165,8 +144,8 @@
     <widget class="QPushButton" name="btnPortPathBrowse">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>230</y>
+       <x>390</x>
+       <y>170</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -178,9 +157,9 @@
     <widget class="QLabel" name="lblFileSize">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>290</y>
-       <width>111</width>
+       <x>10</x>
+       <y>230</y>
+       <width>61</width>
        <height>51</height>
       </rect>
      </property>
@@ -191,9 +170,9 @@
     <widget class="QComboBox" name="comboBox">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>300</y>
-       <width>281</width>
+       <x>70</x>
+       <y>240</y>
+       <width>311</width>
        <height>31</height>
       </rect>
      </property>
@@ -201,9 +180,9 @@
     <widget class="QLabel" name="lblPortAddress">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>360</y>
-       <width>121</width>
+       <x>10</x>
+       <y>300</y>
+       <width>91</width>
        <height>51</height>
       </rect>
      </property>
@@ -214,9 +193,9 @@
     <widget class="QPlainTextEdit" name="txtPortAddress">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>370</y>
-       <width>281</width>
+       <x>110</x>
+       <y>310</y>
+       <width>271</width>
        <height>31</height>
       </rect>
      </property>
@@ -224,57 +203,35 @@
     <widget class="QPushButton" name="btnOK">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>500</y>
+       <x>110</x>
+       <y>450</y>
        <width>101</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Apply</string>
+      <string>Logging</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btnCancel">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>500</y>
+       <x>260</x>
+       <y>450</y>
        <width>91</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Cancel</string>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="spinBox">
-     <property name="geometry">
-      <rect>
-       <x>480</x>
-       <y>30</y>
-       <width>41</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="minimum">
-      <number>0</number>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="value">
-      <number>100</number>
-     </property>
-     <property name="displayIntegerBase">
-      <number>10</number>
+      <string>Playback</string>
      </property>
     </widget>
     <widget class="QLabel" name="lblFileCompression">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>430</y>
-       <width>131</width>
+       <x>10</x>
+       <y>370</y>
+       <width>121</width>
        <height>51</height>
       </rect>
      </property>
@@ -285,9 +242,9 @@
     <widget class="QComboBox" name="comboBox2">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>440</y>
-       <width>281</width>
+       <x>130</x>
+       <y>380</y>
+       <width>251</width>
        <height>31</height>
       </rect>
      </property>
@@ -304,41 +261,17 @@
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>3</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>TopicSliderRange</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>198</x>
-     <y>86</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>250</x>
-     <y>64</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>TopicSliderRange</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>253</x>
-     <y>49</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>232</x>
-     <y>80</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

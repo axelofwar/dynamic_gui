@@ -12,7 +12,7 @@ class dynamic_gui_widget : public QWidget
     Q_OBJECT
 
 public:
-    explicit dynamic_gui_widget(QWidget *parent = nullptr);
+    dynamic_gui_widget(QWidget *parent = nullptr);
     ~dynamic_gui_widget();
 
 private slots:
@@ -24,7 +24,7 @@ private slots:
 
   void on_btnPortPathBrowse_clicked();
 
-  void on_TopicSliderRange_valueChanged(int value);
+  //void on_TopicSliderRange_valueChanged(int value);
 
   void on_btnOK_clicked();
 

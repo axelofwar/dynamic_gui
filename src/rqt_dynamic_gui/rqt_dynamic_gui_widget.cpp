@@ -9,6 +9,8 @@
 #include <QTextStream>
 #include <QVariant>
 #include <QSlider>
+#include <QProcess>
+#include <QString>
 #include <cstdlib>
 #include <iostream>
 
@@ -44,51 +46,44 @@ dynamic_gui_widget::dynamic_gui_widget(QWidget *parent) :
      ui->comboBox2->addItem("LZ4");
 
     //read Json
+ QFile file_obj("Generate_file.json");
+ if(file_obj.exists())
+ {
+ if(!file_obj.open(QIODevice::ReadOnly))
+ {
+     qDebug()<<"Failed to open "<<"Generate_file.json";
 
-     QFile file_obj("Generate_file.json");
-      // qDebug()<<"Failed to open "<<"Generate_file.json";
-       if(!file_obj.open(QIODevice::ReadOnly))
-       {
-        //  qDebug()<<"Failed to open2 "<<"Generate_file.json";
-     }
+ }
 
-    //  std::cout <<"Before QTextStream block";
-     QTextStream file_text(&file_obj);
-     QString json_string;
-     json_string = file_text.readAll();
-     file_obj.close();
-     QByteArray json_bytes = json_string.toLocal8Bit();
-    //  std::cout <<"After QTextStream block";
-    
-    //  std::cout <<"Before auto block";
-     auto json_doc=QJsonDocument::fromJson(json_bytes);
-    //  std::cout <<"After auto block";
+ QTextStream file_text(&file_obj);
+ QString json_string;
+ json_string = file_text.readAll();
+ file_obj.close();
+ QByteArray json_bytes = json_string.toLocal8Bit();
 
-     if(json_doc.isNull()){
-         //qDebug()<<"Failed to create JSON doc.";
-         std::cout<<"JSON failed to create";
-         exit(2);
-     }
-     if(!json_doc.isObject()){
-         //qDebug()<<"JSON is not an object.";
-         std::cout<<"JSON is not an object";
-         exit(3);
-     }
 
-    std::cout <<"After if statements block";
+ auto json_doc=QJsonDocument::fromJson(json_bytes);
 
-     QJsonObject json_obj=json_doc.object();
+ if(json_doc.isNull()){
+     //qDebug()<<"Failed to create JSON doc.";
+     exit(2);
+ }
+ if(!json_doc.isObject()){
+     //qDebug()<<"JSON is not an object.";
+     exit(3);
+ }
 
-     if(json_obj.isEmpty()){
-         //qDebug()<<"JSON object is empty.";
-         std::cout<<"JSON is empty";
-         exit(4);
-     }
+ QJsonObject json_obj=json_doc.object();
 
-    // Mapping from Json to ui
-     QVariantMap json_map = json_obj.toVariantMap();
+ if(json_obj.isEmpty()){
+     //qDebug()<<"JSON object is empty.";
+     exit(4);
+ }
 
-     ui->TopicSliderRange->setValue(json_map["Topic Range"].toInt());
+ // Mapping from Json to ui
+ QVariantMap json_map = json_obj.toVariantMap();
+
+     //ui->TopicSliderRange->setValue(json_map["Topic Range"].toInt());
      ui->txtDbcPath->setPlainText(json_map["Dbc Path"].toString());
      ui->plainTextEdit->setPlainText(json_map["Roslaunch file path"].toString());
      ui->txtPort->setPlainText(json_map["Port"].toString());
@@ -97,17 +92,23 @@ dynamic_gui_widget::dynamic_gui_widget(QWidget *parent) :
      ui->txtPortAddress->setPlainText(json_map["Port address"].toString());
 
      }
-
+    }
 }
 
-dynamic_gui_widget::~dynamic_gui_widget()
-{
-    delete ui;
-}
+ dynamic_gui_widget::~dynamic_gui_widget()
+ {
+     delete ui;
+ }
 
 void dynamic_gui_widget::on_btnCancel_clicked()
 {
   //MainWindow* window = new MainWindow();
+       QProcess::startDetached("sh /home/vuda/catkin_ws/playback.sh");
+
+//     QObject *parent1;
+//     QProcess *myProcess = new QProcess(parent1);
+//     QString program1 = "/home/vuda/catkin_ws/playback.sh";
+//     myProcess->start(program1,QStringList() <<"playback.sh");
      dynamic_gui_widget::close();
 }
 
@@ -136,17 +137,22 @@ void dynamic_gui_widget::on_btnPortPathBrowse_clicked()
   ui->txtPort->setPlainText(FileName);
 }
 
-void dynamic_gui_widget::on_TopicSliderRange_valueChanged(int value)
-{
-    ui->TopicSliderRange->setValue(value);
-}
+//void dynamic_gui_widget::on_TopicSliderRange_valueChanged(int value)
+//{
+    //ui->TopicSliderRange->setValue(value);
+//}
 
 void dynamic_gui_widget::on_btnOK_clicked()
 {
+//  QObject *parent2;
+//  QProcess *myProcess = new QProcess(parent2);
+//  QString program2 = "/home/vuda/catkin_ws/vuda.sh";
+//  myProcess->start(program2,QStringList() <<"vuda.sh");
+
   dynamic_gui_widget::close();
 
-  QVariant var(ui->TopicSliderRange->value());
-  QString uTopicRange = var.toString();//Get
+  //QVariant var(ui->TopicSliderRange->value());
+  //QString uTopicRange = var.toString();//Get
   QString uDbcText = ui->txtDbcPath->toPlainText();//Get
   QString uPlainText = ui->plainTextEdit->toPlainText();//Get
   QString uPortText = ui->txtPort->toPlainText();//Get
@@ -164,7 +170,7 @@ void dynamic_gui_widget::on_btnOK_clicked()
 
 
 //Saving as Json file
-            QString json_filter = "*.json";
+            //QString json_filter = "*.json";
             QString data_saved = QFileDialog::getSaveFileName(this, "Save File","./Generate_file.json");
 
 
@@ -177,7 +183,7 @@ void dynamic_gui_widget::on_btnOK_clicked()
             {
              QJsonDocument doc;
              QJsonObject obj;
-             obj["Topic Range"] = uTopicRange;
+             //obj["Topic Range"] = uTopicRange;
              obj["Dbc Path"] = uDbcText;
              obj["Roslaunch file path"] = uPlainText;
              obj["Port"] = uPortText;
@@ -203,6 +209,23 @@ void dynamic_gui_widget::on_btnOK_clicked()
 
             //  std::cout<<"Before QTextStream block";
             }
+
+        //command to run logging/bagging from terminal
+        QProcess::startDetached("sh /home/vuda/catkin_ws/vuda.sh");
+        //startDetached seems to load into its own unique pid and process but it doesn't open a terminal
+        //that is connected to that process so you Ctrl+c only closes the dynamic_gui but not the vuda gui
+        //you can click the x to close the vuda gui but the axis cam related functions started by the launch file
+        //remain running in the background.
+        //NEXT STEP is to figure out how to use one command (possibly a button on the dynamic gui since it's the parent?)
+        //in order to effectivly Ctrl+c both guis
+
+        //may not need topic count
+        //buttons for logging and playback instead of apply/cancel
+        //port ->camera_port/usb_cam_port or something more specific for the user
+        // /dev/video1
+        //may not need port address
+        //experiment with maybe single-select buttons for file size
+        //shoot for thursday
 }
 
 
