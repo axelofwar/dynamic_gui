@@ -2,6 +2,18 @@
 #define DYNAMIC_GUI_WIDGET
 
 #include <QWidget>
+#include <QProcess>
+
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <QString>
+#include <QObject>
+#include <QCoreApplication>
+
+#include <ros/ros.h>
+#include <ros/master.h>
+
 
 namespace Ui {
 class dynamic_gui_widget;
@@ -15,25 +27,55 @@ public:
     dynamic_gui_widget(QWidget *parent = nullptr);
     ~dynamic_gui_widget();
 
+    void shutdown_process();
+
+
+protected:
+//    qint64 *pid;
+
+
 private slots:
-  void on_btnCancel_clicked();
 
   void on_btnDbcBrowse_clicked();
 
   void on_btnRoslaunchBrowse_clicked();
 
-  void on_btnPortPathBrowse_clicked();
+  void on_btnRoslaunchBrowse_2_clicked();
 
-  //void on_TopicSliderRange_valueChanged(int value);
+  void on_btnPortPathBrowse_clicked();
 
   void on_btnOK_clicked();
 
+  void on_btnPlayback_clicked();
+
   //void on_comboBox_currentTextChanged(const QString &arg1);
 
-  //void on_pushButton_clicked();
+  //void on_TopicSliderRange_valueChanged(int value);
+
 
 private:
     Ui::dynamic_gui_widget *ui;
+
+    ros::NodeHandle nh;
+    QString file;
+    QString bagPath;
+
+//    QObject test(QObject *parent={});
+//    test(QObject *parent) : QObject(parent) {}
+//    test logging;
+//    explicit logging(const QString& name, QObject* parent);
+//    ~logging();
+
+//    QCoreApplication logging(int argc, char* argv);
+
+//        QObject *logging;
+        QProcess *loggingProcess = new QProcess;
+        QString vudaLog = "/home/vuda/catkin_ws/vuda.sh";
+
+        QObject *playback;
+        QProcess *playbackProcess = new QProcess(playback);
+        QString vudaPlay = "/home/vuda/catkin_ws/playback.sh";
+
 };
 
 #endif // DYNAMIC_GUI_WIDGET

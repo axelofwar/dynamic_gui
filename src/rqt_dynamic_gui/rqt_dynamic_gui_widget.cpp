@@ -11,9 +11,10 @@
 #include <QSlider>
 #include <QProcess>
 #include <QString>
+
 #include <cstdlib>
 #include <iostream>
-
+#include <string>
 
 #include "ui_rqt_dynamic_gui_widget.h"
 
@@ -22,14 +23,6 @@ dynamic_gui_widget::dynamic_gui_widget(QWidget *parent) :
     ui(new Ui::dynamic_gui_widget)
 {
     ui->setupUi(this);
-
-    // connect(ui->btnOK, SIGNAL(clicked()), this, SLOT(on_btnOK_clicked()));
-    // connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(on_btnCancel_clicked()));
-    // connect(ui->btnDbcBrowse, SIGNAL(clicked()), this, SLOT(on_btnDbcBrowse_clicked()));
-    // connect(ui->btnRoslaunchBrowse, SIGNAL(clicked()), this, SLOT(on_btnRoslaunchBrowse_clicked()));
-    // connect(ui->btnPortPathBrowse, SIGNAL(clicked()), this, SLOT(on_btnPortPathBrowse_clicked()));
-    // connect(ui->TopicSliderRange, SIGNAL(valueChanged()), this, SLOT(on_TopicSliderRange_valueChanged()));
-
 
     {
      //set file size combo box
@@ -46,7 +39,7 @@ dynamic_gui_widget::dynamic_gui_widget(QWidget *parent) :
      ui->comboBox2->addItem("LZ4");
 
     //read Json
- QFile file_obj("Generate_file.json");
+ QFile file_obj("/home/vuda/Desktop/Generate_file.json");
  if(file_obj.exists())
  {
  if(!file_obj.open(QIODevice::ReadOnly))
@@ -83,41 +76,41 @@ dynamic_gui_widget::dynamic_gui_widget(QWidget *parent) :
  // Mapping from Json to ui
  QVariantMap json_map = json_obj.toVariantMap();
 
-     //ui->TopicSliderRange->setValue(json_map["Topic Range"].toInt());
-     ui->txtDbcPath->setPlainText(json_map["Dbc Path"].toString());
-     ui->plainTextEdit->setPlainText(json_map["Roslaunch file path"].toString());
-     ui->txtPort->setPlainText(json_map["Port"].toString());
-     ui->comboBox->setCurrentText(json_map["File size"].toString());
+//     ui->TopicSliderRange->setValue(json_map["Topic Range"].toInt());
+     ui->txtDbcPath->setPlainText(json_map["DBC Path"].toString());
+     ui->plainTextEdit->setPlainText(json_map["Bag path"].toString());
+     ui->txtPort->setPlainText(json_map["usb_cam #"].toString());
+     ui->comboBox->setCurrentText(json_map["File size limit"].toString());
      ui->comboBox2->setCurrentText(json_map["File compression"].toString());
-     ui->txtPortAddress->setPlainText(json_map["Port address"].toString());
+     ui->txtPortAddress->setPlainText(json_map["Device 1"].toString());
 
      }
     }
 }
+ 
+ 
 
  dynamic_gui_widget::~dynamic_gui_widget()
  {
+     shutdown_process();
      delete ui;
  }
 
-void dynamic_gui_widget::on_btnCancel_clicked()
-{
-  //MainWindow* window = new MainWindow();
-       QProcess::startDetached("sh /home/vuda/catkin_ws/playback.sh");
-
-//     QObject *parent1;
-//     QProcess *myProcess = new QProcess(parent1);
-//     QString program1 = "/home/vuda/catkin_ws/playback.sh";
-//     myProcess->start(program1,QStringList() <<"playback.sh");
-     dynamic_gui_widget::close();
-}
+ void dynamic_gui_widget::shutdown_process()
+ {
+//     loggingProcess->kill();
+//     playbackProcess->kill();
+//     qint64 largeNum = Q_INT64_C(pid);
+//     QString value = QString::number(largeNum);
+//     std::string command = "pkill " + value.toString();
+//     system(command);
+ }
 
 void dynamic_gui_widget::on_btnDbcBrowse_clicked()
 {
   QString FileName=QFileDialog::getOpenFileName(
       this, tr("Open File"), "/home/vuda/Desktop", "Dbc file(*.dbc)"
         );
-
 ui->txtDbcPath->setPlainText(FileName);
 }
 
@@ -127,6 +120,45 @@ void dynamic_gui_widget::on_btnRoslaunchBrowse_clicked()
       this, tr("Open File"), "/home/vuda/Desktop"
         );
   ui->plainTextEdit->setPlainText(FileName);
+  std::string FileNamePath;
+  std::string bagFilePath;
+
+  bagPath = FileName;
+  FileNamePath = bagPath.toStdString();
+
+  size_t found;
+  found=FileNamePath.find_last_of("/\\");
+
+  bagFilePath = FileNamePath.substr((0,found));
+//  std::cout<<bagFilePath;
+  nh.setParam("Bag_Log_Directory",bagFilePath);
+}
+
+void dynamic_gui_widget::on_btnRoslaunchBrowse_2_clicked()
+{
+//    Playback Rosbag file path Button
+    QString FileName=QFileDialog::getOpenFileName(
+        this, tr("Open File"), "/home/vuda/Desktop"
+          );
+    ui->plainTextEdit_2->setPlainText(FileName);
+
+    std::string stdfilename;
+    std::string filePathP;
+
+    file = FileName;
+    stdfilename = file.toStdString();
+
+    size_t found;
+    found=stdfilename.find_last_of("/\\");
+
+    filePathP = stdfilename.substr(0,found);
+//    stdfilename = stdfilename.substr(0,found);
+
+//    std::cout<<filePathP;
+//    std::cout <<"folder: "<<stdfilename.substr(0,found)<<endl;
+
+    nh.setParam("Bag_Play_Directory",filePathP);
+
 }
 
 void dynamic_gui_widget::on_btnPortPathBrowse_clicked()
@@ -142,23 +174,44 @@ void dynamic_gui_widget::on_btnPortPathBrowse_clicked()
     //ui->TopicSliderRange->setValue(value);
 //}
 
+void dynamic_gui_widget::on_btnPlayback_clicked()
+{
+//Playback Button
+
+       dynamic_gui_widget::close();
+
+//Append JSON file
+//       if(uBagDirText = NULL)
+//           qDebug()<<"Bag directory required";
+
+//             QObject *playback;
+//             QProcess *playbackProcess = new QProcess(playback);
+//             QString vudaPlay = "/home/vuda/catkin_ws/playback.sh";
+
+             QMessageBox::information(this,tr("TITLE"),tr("Open Playback!!"));
+
+
+             playbackProcess->start(vudaPlay,QStringList() <<"playback.sh");
+             playbackProcess->waitForFinished();
+
+
+
+}
+
+
 void dynamic_gui_widget::on_btnOK_clicked()
 {
-//  QObject *parent2;
-//  QProcess *myProcess = new QProcess(parent2);
-//  QString program2 = "/home/vuda/catkin_ws/vuda.sh";
-//  myProcess->start(program2,QStringList() <<"vuda.sh");
 
   dynamic_gui_widget::close();
 
   //QVariant var(ui->TopicSliderRange->value());
   //QString uTopicRange = var.toString();//Get
-  QString uDbcText = ui->txtDbcPath->toPlainText();//Get
-  QString uPlainText = ui->plainTextEdit->toPlainText();//Get
-  QString uPortText = ui->txtPort->toPlainText();//Get
-  QString uPortAddressText = ui->txtPortAddress->toPlainText();//Get
-  QVariant uComboBox = ui->comboBox->currentText();//Get
-  QVariant uComboBox2 = ui->comboBox2->currentText();//Get
+  QString uDBCText = ui->txtDbcPath->toPlainText();//Get
+  QString uBagPath = ui->plainTextEdit->toPlainText();//Get
+  QString uUsbcam = ui->txtPort->toPlainText();//Get
+  QString uDevice1 = ui->txtPortAddress->toPlainText();//Get
+  QVariant uFileSizeLimit = ui->comboBox->currentText();//Get
+  QVariant uFileComp = ui->comboBox2->currentText();//Get
 
 
            //file.setFileName("test.json");
@@ -170,7 +223,7 @@ void dynamic_gui_widget::on_btnOK_clicked()
 
 
 //Saving as Json file
-            //QString json_filter = "*.json";
+//            QString json_filter = "*.json";
             QString data_saved = QFileDialog::getSaveFileName(this, "Save File","./Generate_file.json");
 
 
@@ -184,18 +237,17 @@ void dynamic_gui_widget::on_btnOK_clicked()
              QJsonDocument doc;
              QJsonObject obj;
              //obj["Topic Range"] = uTopicRange;
-             obj["Dbc Path"] = uDbcText;
-             obj["Roslaunch file path"] = uPlainText;
-             obj["Port"] = uPortText;
-             obj["Port address"] = uPortAddressText;
-             obj["File size"] = uComboBox.toString();
-             obj["File compression"] = uComboBox2.toString();
+             obj["DBC Path"] = uDBCText;
+             obj["Bag path"] = uBagPath;
+             obj["usb_cam #"] = uUsbcam;
+             obj["Device 1"] = uDevice1;
+             obj["File size_limit"] = uFileSizeLimit.toString();
+             obj["File compression"] = uFileComp.toString();
 
              doc.setObject(obj);
              QByteArray data_json = doc.toJson();
              QFile output(data_saved);
 
-            // std::cout<<"Before QTextStream block";
         if (output.open(QIODevice::WriteOnly | QIODevice::Text))
              {
              output.write(data_json);
@@ -207,26 +259,23 @@ void dynamic_gui_widget::on_btnOK_clicked()
                                      output.errorString());
              }
 
-            //  std::cout<<"Before QTextStream block";
             }
 
+        nh.setParam("DBCpath",uDBCText.toStdString());
+        nh.setParam("BagPath",uBagPath.toStdString());
+        nh.setParam("usbCam",uUsbcam.toStdString());
+        nh.setParam("Device1",uDevice1.toStdString());
+        nh.setParam("FileSizeLimit",uFileSizeLimit.toString().toStdString());
+        nh.setParam("FileCompression",uFileComp.toString().toStdString());
+
+
         //command to run logging/bagging from terminal
-        QProcess::startDetached("sh /home/vuda/catkin_ws/vuda.sh");
-        //startDetached seems to load into its own unique pid and process but it doesn't open a terminal
-        //that is connected to that process so you Ctrl+c only closes the dynamic_gui but not the vuda gui
-        //you can click the x to close the vuda gui but the axis cam related functions started by the launch file
-        //remain running in the background.
-        //NEXT STEP is to figure out how to use one command (possibly a button on the dynamic gui since it's the parent?)
-        //in order to effectivly Ctrl+c both guis
+//            QObject *logging;
+//            QProcess *loggingProcess = new QProcess(logging);
+//            QString vudaLog = "/home/vuda/catkin_ws/vuda.sh";
 
-        //may not need topic count
-        //buttons for logging and playback instead of apply/cancel
-        //port ->camera_port/usb_cam_port or something more specific for the user
-        // /dev/video1
-        //may not need port address
-        //experiment with maybe single-select buttons for file size
-        //shoot for thursday
+         loggingProcess->start(vudaLog,QStringList() <<"vuda.sh");
+         loggingProcess->waitForFinished();
+
+        //experiment with single-select buttons for file size
 }
-
-
-

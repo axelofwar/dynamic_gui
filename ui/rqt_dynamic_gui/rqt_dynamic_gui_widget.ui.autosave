@@ -59,15 +59,15 @@
       </rect>
      </property>
      <property name="text">
-      <string>DBC Filepath</string>
+      <string>DBC path</string>
      </property>
     </widget>
     <widget class="QPlainTextEdit" name="txtDbcPath">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>80</x>
        <y>30</y>
-       <width>251</width>
+       <width>281</width>
        <height>31</height>
       </rect>
      </property>
@@ -98,15 +98,15 @@
       </rect>
      </property>
      <property name="text">
-      <string>Bag Filepath</string>
+      <string>Bag path</string>
      </property>
     </widget>
     <widget class="QPlainTextEdit" name="plainTextEdit">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>80</x>
        <y>100</y>
-       <width>261</width>
+       <width>281</width>
        <height>31</height>
       </rect>
      </property>
@@ -137,15 +137,15 @@
       </rect>
      </property>
      <property name="text">
-      <string>Usb_cam Port</string>
+      <string>usb_cam #</string>
      </property>
     </widget>
     <widget class="QPlainTextEdit" name="txtPort">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>90</x>
        <y>170</y>
-       <width>251</width>
+       <width>271</width>
        <height>31</height>
       </rect>
      </property>
@@ -171,20 +171,20 @@
       <rect>
        <x>10</x>
        <y>230</y>
-       <width>61</width>
+       <width>91</width>
        <height>51</height>
       </rect>
      </property>
      <property name="text">
-      <string>File Size</string>
+      <string>File size limit</string>
      </property>
     </widget>
     <widget class="QComboBox" name="comboBox">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>130</x>
        <y>240</y>
-       <width>291</width>
+       <width>271</width>
        <height>31</height>
       </rect>
      </property>
@@ -193,21 +193,21 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>300</y>
+       <y>370</y>
        <width>91</width>
        <height>51</height>
       </rect>
      </property>
      <property name="text">
-      <string>Port Address</string>
+      <string>Device 1</string>
      </property>
     </widget>
     <widget class="QPlainTextEdit" name="txtPortAddress">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>310</y>
-       <width>251</width>
+       <x>130</x>
+       <y>380</y>
+       <width>271</width>
        <height>31</height>
       </rect>
      </property>
@@ -229,7 +229,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>370</y>
+       <y>300</y>
        <width>121</width>
        <height>51</height>
       </rect>
@@ -242,8 +242,8 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>380</y>
-       <width>231</width>
+       <y>310</y>
+       <width>271</width>
        <height>31</height>
       </rect>
      </property>
@@ -274,7 +274,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Bag Directory</string>
+      <string>Bag directory</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btnRoslaunchBrowse_2">
@@ -290,7 +290,7 @@
       <string>...</string>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="plainTextEdit_2">
+    <widget class="QPlainTextEdit" name="bagDirectoryText">
      <property name="geometry">
       <rect>
        <x>110</x>

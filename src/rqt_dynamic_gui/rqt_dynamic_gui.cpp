@@ -20,7 +20,8 @@ void rqt_dynamic_gui::dynamic_gui::initPlugin(qt_gui_cpp::PluginContext &context
 
 void rqt_dynamic_gui::dynamic_gui::shutdownPlugin()
 {
-
+    // dynamic_gui::widget->myProcess.kill();
+    widget->shutdown_process();
 }
 
 void rqt_dynamic_gui::dynamic_gui::saveSettings(qt_gui_cpp::Settings &plugin_settings, qt_gui_cpp::Settings &instance_settings) const
