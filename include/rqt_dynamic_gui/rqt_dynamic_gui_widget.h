@@ -58,22 +58,14 @@ private:
 
     ros::NodeHandle nh;
     QString file;
-    QString bagPath;
-
-//    QObject test(QObject *parent={});
-//    test(QObject *parent) : QObject(parent) {}
-//    test logging;
-//    explicit logging(const QString& name, QObject* parent);
-//    ~logging();
-
-//    QCoreApplication logging(int argc, char* argv);
+    QString bag;
 
 //        QObject *logging;
         QProcess *loggingProcess = new QProcess;
         QString vudaLog = "/home/vuda/catkin_ws/vuda.sh";
 
-        QObject *playback;
-        QProcess *playbackProcess = new QProcess(playback);
+//        QObject *playback;
+        QProcess *playbackProcess = new QProcess;
         QString vudaPlay = "/home/vuda/catkin_ws/playback.sh";
 
 };

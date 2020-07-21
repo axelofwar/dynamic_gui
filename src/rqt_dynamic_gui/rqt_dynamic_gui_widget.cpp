@@ -112,6 +112,16 @@ void dynamic_gui_widget::on_btnDbcBrowse_clicked()
       this, tr("Open File"), "/home/vuda/Desktop", "Dbc file(*.dbc)"
         );
 ui->txtDbcPath->setPlainText(FileName);
+
+if(FileName.isEmpty())
+{
+    QMessageBox::information(this,tr("TITLE"),tr("Please choose a file for the dbc directory!"));
+    FileName=QFileDialog::getOpenFileName(
+        this, tr("Open File"), "/home/vuda/Desktop"
+          );
+    ui->plainTextEdit->setPlainText(FileName);
+}
+
 }
 
 void dynamic_gui_widget::on_btnRoslaunchBrowse_clicked()
@@ -120,17 +130,28 @@ void dynamic_gui_widget::on_btnRoslaunchBrowse_clicked()
       this, tr("Open File"), "/home/vuda/Desktop"
         );
   ui->plainTextEdit->setPlainText(FileName);
+
+  if(FileName.isEmpty())
+  {
+      QMessageBox::information(this,tr("TITLE"),tr("Please choose a file for the bag directory!"));
+      FileName=QFileDialog::getOpenFileName(
+          this, tr("Open File"), "/home/vuda/Desktop"
+            );
+      ui->plainTextEdit->setPlainText(FileName);
+  }
+
   std::string FileNamePath;
   std::string bagFilePath;
 
-  bagPath = FileName;
-  FileNamePath = bagPath.toStdString();
+  bag = FileName;
+  FileNamePath = bag.toStdString();
 
   size_t found;
   found=FileNamePath.find_last_of("/\\");
 
   bagFilePath = FileNamePath.substr((0,found));
 //  std::cout<<bagFilePath;
+
   nh.setParam("Bag_Log_Directory",bagFilePath);
 }
 
@@ -142,6 +163,15 @@ void dynamic_gui_widget::on_btnRoslaunchBrowse_2_clicked()
           );
     ui->plainTextEdit_2->setPlainText(FileName);
 
+    if(FileName.isEmpty())
+    {
+        QMessageBox::information(this,tr("TITLE"),tr("Please choose a file for the bag directory!"));
+        FileName=QFileDialog::getOpenFileName(
+            this, tr("Open File"), "/home/vuda/Desktop"
+              );
+        ui->plainTextEdit->setPlainText(FileName);
+    }
+
     std::string stdfilename;
     std::string filePathP;
 
@@ -152,10 +182,7 @@ void dynamic_gui_widget::on_btnRoslaunchBrowse_2_clicked()
     found=stdfilename.find_last_of("/\\");
 
     filePathP = stdfilename.substr(0,found);
-//    stdfilename = stdfilename.substr(0,found);
-
 //    std::cout<<filePathP;
-//    std::cout <<"folder: "<<stdfilename.substr(0,found)<<endl;
 
     nh.setParam("Bag_Play_Directory",filePathP);
 
@@ -167,6 +194,15 @@ void dynamic_gui_widget::on_btnPortPathBrowse_clicked()
       this, tr("Open File"), "/home/vuda/Desktop"
         );
   ui->txtPort->setPlainText(FileName);
+
+  if(FileName.isEmpty())
+  {
+      QMessageBox::information(this,tr("TITLE"),tr("Please choose a path/port for the usb cam!"));
+      FileName=QFileDialog::getOpenFileName(
+          this, tr("Open File"), "/home/vuda/Desktop"
+            );
+      ui->plainTextEdit->setPlainText(FileName);
+  }
 }
 
 //void dynamic_gui_widget::on_TopicSliderRange_valueChanged(int value)
@@ -176,25 +212,17 @@ void dynamic_gui_widget::on_btnPortPathBrowse_clicked()
 
 void dynamic_gui_widget::on_btnPlayback_clicked()
 {
-//Playback Button
-
        dynamic_gui_widget::close();
 
 //Append JSON file
 //       if(uBagDirText = NULL)
 //           qDebug()<<"Bag directory required";
 
-//             QObject *playback;
-//             QProcess *playbackProcess = new QProcess(playback);
-//             QString vudaPlay = "/home/vuda/catkin_ws/playback.sh";
-
              QMessageBox::information(this,tr("TITLE"),tr("Open Playback!!"));
 
 
              playbackProcess->start(vudaPlay,QStringList() <<"playback.sh");
              playbackProcess->waitForFinished();
-
-
 
 }
 
@@ -270,9 +298,6 @@ void dynamic_gui_widget::on_btnOK_clicked()
 
 
         //command to run logging/bagging from terminal
-//            QObject *logging;
-//            QProcess *loggingProcess = new QProcess(logging);
-//            QString vudaLog = "/home/vuda/catkin_ws/vuda.sh";
 
          loggingProcess->start(vudaLog,QStringList() <<"vuda.sh");
          loggingProcess->waitForFinished();
